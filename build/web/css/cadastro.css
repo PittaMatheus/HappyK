@@ -1,0 +1,14 @@
+.bg-color{
+    background-color: #26a69a;
+    background-image: linear-gradient(to right, #5ebdb4 , #ffff9ec2);
+}
+.form-style{
+    margin-top: 40px;
+    background-color: white;
+    border-radius: 10px;
+    padding: 20px 40px 20px 40px;
+}
+.form-style h5{
+    font-variant: all-small-caps;
+    padding-bottom: 20px;
+}

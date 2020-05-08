@@ -1,0 +1,440 @@
+-- -----------------------------------------------------
+-- Table tb_usuario
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS tb_usuario (
+  id SERIAL UNIQUE NOT NULL,
+  username VARCHAR(16) NULL,
+  email VARCHAR(255) NOT NULL,
+  password VARCHAR(32) NOT NULL,
+  PRIMARY KEY (id));
+
+-- -----------------------------------------------------
+-- Table tb_pais
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS tb_pais (
+  id INT UNIQUE NOT NULL,
+  nome VARCHAR(45) NOT NULL,
+  PRIMARY KEY (id));
+
+
+-- -----------------------------------------------------
+-- Table tb_estado
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS tb_estado (
+  id INT UNIQUE NOT NULL,
+  nome VARCHAR(45) NOT NULL,
+  PRIMARY KEY (id));
+
+-- -----------------------------------------------------
+-- Table tb_cidade
+-- -----------------------------------------------------
+
+CREATE TABLE IF NOT EXISTS tb_cidade (
+  id INT UNIQUE unique NOT NULL,
+  nome VARCHAR(45) NOT NULL,
+  id_estado INT NOT NULL,
+  PRIMARY KEY (id, id_estado),
+  CONSTRAINT fk_cidade_estado
+    FOREIGN KEY (id_estado)
+    REFERENCES tb_estado (id)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+
+
+-- -----------------------------------------------------
+-- Table tipo_tipo_logradouro
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS tb_tipo_logradouro (
+  id INT UNIQUE NOT NULL,
+  descricao VARCHAR(45) NOT NULL,
+  PRIMARY KEY (id));
+
+
+-- -----------------------------------------------------
+-- Table tb_tipo_endereco
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS tb_tipo_endereco (
+  id INT UNIQUE NOT NULL,
+  descricao VARCHAR(45) NOT NULL,
+  PRIMARY KEY (id));
+
+-- -----------------------------------------------------
+-- Table tb_tipo_residencial
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS tb_tipo_residencial (
+  id INT UNIQUE NOT NULL,
+  descricao VARCHAR(45) NOT NULL,
+  PRIMARY KEY (id));
+
+-- -----------------------------------------------------
+-- Table tb_endereco
+-- -----------------------------------------------------
+
+CREATE TABLE IF NOT EXISTS tb_endereco (
+  id SERIAL UNIQUE unique NOT NULL,
+  logradouro VARCHAR(45) NOT NULL,
+  numero VARCHAR(45) NOT NULL,
+  bairro VARCHAR(45) NOT NULL,
+  cep VARCHAR(45) NOT NULL,
+  descricao VARCHAR(45) NOT NULL,
+  id_pais INT NOT NULL,
+  id_cidade INT NOT NULL,
+  id_estado INT NOT NULL,
+  id_tipo_residencial INT NOT NULL,
+  id_tipo_logradouro INT NOT NULL,
+  id_tipo_endereco INT NOT NULL,
+  PRIMARY KEY (id, id_pais, id_cidade, id_estado, id_tipo_residencial, id_tipo_logradouro, id_tipo_endereco),
+  CONSTRAINT fk_endereco_pais
+    FOREIGN KEY (id_pais)
+    REFERENCES tb_pais (id)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT fk_endereco_cidade
+    FOREIGN KEY (id_cidade)
+    REFERENCES tb_cidade (id)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+	  CONSTRAINT fk_endereco_estado
+    FOREIGN KEY (id_estado)
+    REFERENCES tb_estado (id)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT fk_endereco_tipoResidencial
+    FOREIGN KEY (id_tipo_residencial)
+    REFERENCES tb_tipo_residencial (id)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT fk_endereco_tipoLogradouro
+    FOREIGN KEY (id_tipo_logradouro)
+    REFERENCES tb_tipo_logradouro (id)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT fk_endereco_tipoEndereco
+    FOREIGN KEY (id_tipo_endereco)
+    REFERENCES tb_tipo_endereco (id)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+
+
+-- -----------------------------------------------------
+-- Table tb_genero
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS tb_genero (
+  id INT UNIQUE NOT NULL,
+  descricao VARCHAR(45) NOT NULL,
+  PRIMARY KEY (id));
+
+
+-- -----------------------------------------------------
+-- Table tb_ddd
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS tb_ddd (
+  id INT UNIQUE NOT NULL,
+  numero INT NOT NULL,
+  PRIMARY KEY (id));
+
+
+-- -----------------------------------------------------
+-- Table tb_tipo_telefone
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS tb_tipo_telefone (
+  id INT UNIQUE NOT NULL,
+  descricao VARCHAR(45) NOT NULL,
+  PRIMARY KEY (id));
+
+
+-- -----------------------------------------------------
+-- Table tb_contato
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS tb_contato (
+  id INT UNIQUE unique NOT NULL,
+  numero VARCHAR(45) NOT NULL,
+  id_ddd INT NOT NULL,
+  id_tipo_telefone INT NOT NULL,
+  PRIMARY KEY (id, id_ddd, id_tipo_telefone),
+  CONSTRAINT fk_contato_ddd
+    FOREIGN KEY (id_ddd)
+    REFERENCES tb_ddd (id)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT fk_contato_tipo_telefone
+    FOREIGN KEY (id_tipo_telefone)
+    REFERENCES tb_tipo_telefone (id)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+
+
+-- -----------------------------------------------------
+-- Table tb_bandeira
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS tb_bandeira (
+  id INT UNIQUE NOT NULL,
+  nome VARCHAR(45) NOT NULL,
+  PRIMARY KEY (id));
+
+
+-- -----------------------------------------------------
+-- Table tb_cartao
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS tb_cartao (
+  id INT UNIQUE NOT NULL,
+  numero VARCHAR(45) NOT NULL,
+  nome VARCHAR(45) NOT NULL,
+  codigo_de_seguranca VARCHAR(3) NOT NULL,
+  preferencial boolean NOT NULL,
+  id_bandeira INT NOT NULL,
+  PRIMARY KEY (id, id_bandeira),
+  CONSTRAINT fk_cartao_bandeira
+    FOREIGN KEY (id_bandeira)
+    REFERENCES tb_bandeira (id)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+
+
+-- -----------------------------------------------------
+-- Table tb_status
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS tb_status (
+  id INT UNIQUE NOT NULL,
+  descricao VARCHAR(45) NULL,
+  PRIMARY KEY (id));
+
+
+-- -----------------------------------------------------
+-- Table tb_cliente
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS tb_cliente (
+  id SERIAL UNIQUE NOT NULL,
+  nome VARCHAR(45) NOT NULL,
+  data_nascimento VARCHAR(45) NOT NULL,
+  cpf VARCHAR(45) NOT NULL,
+  ranking INT NULL,
+  id_genero INT NOT NULL,
+  id_usuario INT NOT NULL,
+  id_endereco INT NOT NULL,
+  id_contato INT NOT NULL,
+  id_cartao INT NOT NULL,
+  id_status INT NOT NULL,
+  PRIMARY KEY (id, id_genero, id_usuario, id_endereco, id_contato, id_cartao, id_status),
+  CONSTRAINT fk_cliente_usuario
+    FOREIGN KEY (id_usuario)
+    REFERENCES tb_usuario (id)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT fk_cliente_endereco
+    FOREIGN KEY (id_endereco)
+    REFERENCES tb_endereco (id)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT fk_cliente_genero
+    FOREIGN KEY (id_genero)
+    REFERENCES tb_genero (id)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT fk_cliente_contato
+    FOREIGN KEY (id_contato)
+    REFERENCES tb_contato (id)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT fk_cliente_cartao
+    FOREIGN KEY (id_cartao)
+    REFERENCES tb_cartao (id)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT fk_cliente_status
+    FOREIGN KEY (id_status)
+    REFERENCES tb_status (id)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+
+
+-- -----------------------------------------------------
+-- Table tb_tipo_cupom
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS tb_tipo_cupom (
+  id INT UNIQUE NOT NULL,
+  descricao VARCHAR(45) NOT NULL,
+  PRIMARY KEY (id));
+
+
+-- -----------------------------------------------------
+-- Table tb_cupom
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS tb_cupom (
+  id INT UNIQUE NOT NULL,
+  numero VARCHAR(45) NOT NULL,
+  valor VARCHAR(45) NOT NULL,
+  id_tipo_cupom INT NOT NULL,
+  PRIMARY KEY (id, id_tipo_cupom),
+  CONSTRAINT fk_cupom_tipoCupom
+    FOREIGN KEY (id_tipo_cupom)
+    REFERENCES tb_tipo_cupom (id)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+
+
+-- -----------------------------------------------------
+-- Table tb_categoria
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS tb_categoria (
+  id INT UNIQUE NOT NULL,
+  nome VARCHAR(45) NOT NULL,
+  PRIMARY KEY (id));
+
+
+-- -----------------------------------------------------
+-- Table tb_grupo_precificacao
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS tb_grupo_precificacao (
+  id INT UNIQUE NOT NULL,
+  grupo VARCHAR(45) NOT NULL,
+  margem_de_lucro VARCHAR(45) NOT NULL,
+  PRIMARY KEY (id));
+
+
+-- -----------------------------------------------------
+-- Table tb_categoria_de_inativacao
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS tb_categoria_de_inativacao (
+  id INT UNIQUE NOT NULL,
+  descricao VARCHAR(45) NOT NULL,
+  PRIMARY KEY (id));
+
+
+-- -----------------------------------------------------
+-- Table tb_status_produto
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS tb_status_produto (
+  id INT UNIQUE NOT NULL,
+  descricao VARCHAR(45),
+  PRIMARY KEY (id));
+
+-- -----------------------------------------------------
+-- Table tb_produto
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS tb_produto (
+  id INT UNIQUE NOT NULL,
+  nome VARCHAR(45) NOT NULL,
+  cod_de_barras VARCHAR(45) NOT NULL,
+  data_entrada VARCHAR(45) NOT NULL,
+  fornecedor VARCHAR(45) NOT NULL,
+  quantidade VARCHAR(45) NOT NULL,
+  valor_de_custo VARCHAR(45) NOT NULL,
+  valor_de_venda VARCHAR(45) NOT NULL,
+  id_categoria INT NOT NULL,
+  id_grupo_precificacao INT NOT NULL,
+  id_status_produto INT NOT NULL,
+  id_categoria_de_inativacao INT NULL,
+  PRIMARY KEY (id, id_categoria, id_grupo_precificacao, id_status_produto, id_categoria_de_inativacao),
+  CONSTRAINT fk_produto_categoria
+    FOREIGN KEY (id_categoria)
+    REFERENCES tb_categoria (id)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT fk_produto_grupo_precificacao
+    FOREIGN KEY (id_grupo_precificacao)
+    REFERENCES tb_grupo_precificacao (id)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT fk_produto_estado_do_produto
+    FOREIGN KEY (id_status_produto)
+    REFERENCES tb_status_produto (id)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT fk_produto_categoria_de_inativacao
+    FOREIGN KEY (id_categoria_de_inativacao)
+    REFERENCES tb_categoria_de_inativacao (id)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+	
+
+-- -----------------------------------------------------
+-- Table tb_item_produto
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS tb_item_produto (
+  id INT UNIQUE NOT NULL,
+  quantidade INT NOT NULL,
+  id_produto INT NOT NULL,
+  PRIMARY KEY (id, id_produto),
+  CONSTRAINT fk_item_produto
+    FOREIGN KEY (id_produto)
+    REFERENCES tb_produto (id)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+
+
+-- -----------------------------------------------------
+-- Table tb_status_compra
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS tb_status_compra (
+  id INT UNIQUE NOT NULL,
+  descricao VARCHAR(45) NOT NULL,
+  PRIMARY KEY (id));
+
+
+-- -----------------------------------------------------
+-- Table tb_compra
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS tb_compra (
+  id INT UNIQUE NOT NULL,
+  frete VARCHAR(45) NOT NULL,
+  total VARCHAR(45) NOT NULL,
+  id_cupom INT NULL,
+  id_item_produto INT NOT NULL,
+  id_cliente INT NOT NULL,
+  id_endereco INT NOT NULL,
+  id_status_compra INT NOT NULL,
+  PRIMARY KEY (id, id_cupom, id_item_produto, id_cliente, id_endereco, id_status_compra),
+  CONSTRAINT fk_compra_endereco
+    FOREIGN KEY (id_endereco)
+    REFERENCES tb_endereco (id)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT fk_compra_cupom
+    FOREIGN KEY (id_cupom)
+    REFERENCES tb_cupom (id)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT fk_compra_item_produto
+    FOREIGN KEY (id_item_produto)
+    REFERENCES tb_item_produto (id)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT fk_compra_cliente
+    FOREIGN KEY (id_cliente)
+    REFERENCES tb_cliente (id)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT fk_compra_statusCompra
+    FOREIGN KEY (id_status_compra)
+    REFERENCES tb_status_compra (id)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+
+-- -----------------------------------------------------
+-- Table tb_midia
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS tb_midia (
+  id INT UNIQUE NOT NULL,
+  link varchar(100),
+  PRIMARY KEY (id));
+
+
+-- -----------------------------------------------------
+-- Table tb_produto_has_midia
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS tb_produto_has_midia (
+  id_produto INT UNIQUE NOT NULL,
+  id_midia INT NOT NULL,
+  PRIMARY KEY (id_produto, id_midia),
+  CONSTRAINT fk_produto_has_midia_produto
+    FOREIGN KEY (id_produto)
+    REFERENCES tb_produto (id)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT fk_produto_has_midia_midia
+    FOREIGN KEY (id_midia)
+    REFERENCES tb_midia (id)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+

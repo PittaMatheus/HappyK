@@ -1,0 +1,85 @@
+.logotipo{
+    width: auto;
+    height: -webkit-fill-available;
+}
+.nav-wrapper{
+    background-color: white;
+}
+nav ul a{
+    color: black;
+}
+.navbar-principal{
+    height: 80px;
+    line-height: 80px;
+}
+.navbar-principal div a {
+    padding-left: 10px;
+}
+.navbar-filha{
+    height: 60px;
+    line-height: 60px;
+    display: inline-flex;
+}
+.navbar-icone{
+    height: 80px !important;
+    line-height: 80px !important;
+    color: tomato;
+}
+.no-hover:hover{
+    background-color: transparent;
+}
+.page-footer{
+    background-color: #26a69a;
+}
+nav .input-field label.active i {
+    color: black;
+}
+.footer-social{
+    display: inline-flex;
+}
+.footer-social li{
+    padding-right: 20px;
+}
+.footer-social li a i {
+    font-size: xx-large;
+}
+.rainbow-text {
+    font-weight: 600;
+  background-image: linear-gradient(to right, red, orange, green, blue, yellow, deeppink);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.card-content h5{
+    color: green;
+}
+.card-content{
+    background-color: #efefef;
+}
+.responsive {
+  width: 100%;
+  height: auto;
+}
+.mt-20{
+    margin-top: 20px;
+}
+.btn-comprar{
+    background-color: tomato;
+}
+.display-inline{
+    display: inline-flex;
+}
+.display-inline input{
+    width: 100%;
+}
+.display-inline a{
+    width: 50%;
+}
+.produto-preco{
+    color:green;
+}
+.modal-footer{
+    text-align: center !important;
+}
+.mb-0{
+    margin-bottom: 0;
+}

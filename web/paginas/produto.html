@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <!--Import Google Icon Font-->
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <!--Import materialize.css-->
+        <link type="text/css" rel="stylesheet" href="../materialize/css/materialize.min.css"  media="screen,projection"/>
+        <!--Let browser know website is optimized for mobile-->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <link rel="stylesheet" type="text/css" href="../css/index.css">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.1/css/all.css">
+    </head>
+    <body>
+        <nav class="navbar-principal">
+            <div class="nav-wrapper">
+                <a href="../index.html" class="brand-logo">
+                    <img src="../imagens/happykids.png" alt="logotipo" class="logotipo">
+                </a>
+                <ul id="nav-mobile" class="right hide-on-med-and-down">
+                    <li>  <nav class="navbar-filha">
+                            <div class="nav-wrapper">
+                                <form>
+                                    <div class="input-field">
+                                        <input id="search" type="search" required placeholder="Buscar">
+                                        <label class="label-icon" for="search"><i class="material-icons">search</i></label>
+                                    </div>
+                                </form>
+                            </div>
+                        </nav></li>
+                    <li><a href="paginas/carrinho.html" class="no-hover"><i class="large material-icons navbar-icone">local_grocery_store</i></a></li>
+                    <li><a class="waves-effect waves-light btn"  href="#login">LOGIN</a></li>
+                </ul>
+            </div>
+        </nav>
+        <div class="row mt-20">
+            <div class="col s12 m5">
+                <img src="../imagens/rena.jpg" class="responsive">
+            </div>
+            <div class="col s12 m5">
+                <div class="row">
+                    <h5>Rena Amiga da Fisher Price</h5>
+                    <h5 class="produto-preco">R$ 89,99</h5>
+                    <p>12x de 7,49 sem juros no cartão</p>
+                </div>
+                <div class="row">
+                    <a class="waves-effect waves-light btn btn-comprar">Comprar</a>
+                </div>
+                <div class="row ">
+                    <h6>Digite seu CEP para opções de entrega ou retira:</h6>
+                    <div class="display-inline">
+                        <input type="search" placeholder="00000-000">
+                        <a class="waves-effect waves-light btn">Calcular</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer class="page-footer">
+            <div class="container">
+                <div class="row">
+                    <div class="col l6 s12">
+                        <h6 class="rainbow-text">© Copyright 2020 Happy Kids S/A - Todos os direitos</h6>
+                        <p class="grey-text text-lighten-4">Aviso importante: Todos os preços e condições deste site são válidos apenas para compras no site e não se aplicam para nossas lojas físicas. Os brinquedos divulgados em nosso site possuem certificação dos Órgãos Autorizados - OCP's (Organismos de Certificação de Produtos).</p>
+                    </div>
+                    <div class="col l4 offset-l2 s12">
+                        <h6 class="rainbow-text">SIGA A HAPPYKIDS</h6>
+                        <ul class="footer-social">
+                            <li><a class="grey-text text-lighten-3" href="#!"><i class="fab fa-facebook"></i></a></li>
+                            <li><a class="grey-text text-lighten-3" href="#!"><i class="fab fa-instagram"></i></a></li>
+                            <li><a class="grey-text text-lighten-3" href="#!"><i class="fab fa-youtube"></i></a></li>
+                            <li><a class="grey-text text-lighten-3" href="#!"><i class="fab fa-linkedin"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-copyright">
+                <div class="container">
+                    <a class="grey-text text-lighten-4 right" href="#!">Powered by Hirata</a>
+                </div>
+            </div>
+        </footer>
+        
+        <div id="login" class="modal center">
+            <div class="modal-title ">
+                <h5>Login</h5>
+            </div>
+            <div class="modal-content">
+                <div class="row">
+                    <input placeholder="Login">
+                    <input placeholder="Senha" type="password">
+                </div>
+                <div class="row">
+                    <a>Esqueci minha senha</a>
+                </div>
+
+                <div class="row mb-0">
+                    <a href="paginas/cadastro.html" class="rainbow-text">Não possue conta? Clique aqui e crie agora!</a>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a class="waves-effect waves-light btn">Entrar</a>
+
+            </div>
+        </div>
+       
+        <script type="text/javascript" src="../js/jquery.min.js"></script>   
+        <script type="text/javascript" src="../materialize/js/materialize.min.js"></script>
+        <script type="text/javascript" src="../js/javascript.js"></script>
+
+    </body>
+</html>
